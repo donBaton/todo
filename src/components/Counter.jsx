@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
-import Storage from "../repo/Storage";
+import React from 'react';
 
-const Counter = () => {
-    const [count] = useState(Storage.get('todos')?.length || 0)
+const Counter = (props) => {
     return (
         <div className="row">
-            <div className="text-end">{count} task{count===1?'':"s"} in total</div>
+            <div className="text-end">{props.todos.length} task{props.todos.length===1?'':"s"} in total</div>
         </div>
     );
 }

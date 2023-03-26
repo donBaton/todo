@@ -1,29 +1,23 @@
-import React, {useEffect, useState} from 'react'
-import Storage from "../repo/Storage"
+import React, {useState} from 'react'
 
-const AddTask = () => {
-    const [todos, setTodos] = useState(Storage.get("todos") || [])
+const AddTask = (props) => {
     const [toDoTitle, setToDoTitle] = useState('')
     const [showWarn, setShowWarn] = useState(false)
-
-    useEffect(() => {
-        Storage.set('todos', todos)
-    }, [todos])
 
     const addItem = () => {
         if (toDoTitle === null || toDoTitle === '') {
             setShowWarn(true)
         } else {
-            const todos = Storage.get("todos")
-            todos.push({
-                id: (todos.length || 0) + 1,
+            const copy = [...props.todos]
+            copy.push({
+                id: (copy.length || 0) + 1,
                 title: {toDoTitle}.toDoTitle,
                 date: new Date(),
                 isCompleted: false
             })
-            setTodos(todos);
+            props.handlerTodos(copy)
             setToDoTitle('')
-            window.location.reload()
+            setShowWarn(false)
         }
     }
 

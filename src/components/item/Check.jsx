@@ -1,11 +1,7 @@
 import React from 'react';
-import Storage from '../../repo/Storage'
+
 const Check = (props) => {
     const handleChange = () => {
-        const todos = Storage.get('todos')
-        const current = todos.find(t => t.id === props.id )
-        current.isCompleted = !current.isCompleted
-        Storage.set('todos', todos)
         props.handleIsCompleted(!props.isCompleted)
     }
 
