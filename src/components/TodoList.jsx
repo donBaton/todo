@@ -3,7 +3,8 @@ import TodoItem from "./item/TodoItem";
 
 const TodoList = (props) => {
     const getSortToDos = () => {
-        return props.todos?.sort((a, b) => (b.id - a.id)).map((item) => (
+        return props.todos?.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date)}).map((item) => (
             <TodoItem todo={item} key={item.date} todos={props.todos} handleTodos={props.handlerTodos}/>
         ))
     }
@@ -11,7 +12,7 @@ const TodoList = (props) => {
     return (
         <div className="row">
             <div>
-                {getSortToDos()}
+                {props.isLoading?'Loading...':getSortToDos()}
             </div>
         </div>
     );

@@ -1,28 +1,15 @@
 class Repo {
-    static get = (key) => {
-/*        setTimeout(() => {
-            try {
-                return JSON.parse(localStorage.getItem((key)));
-            } catch (e) {
-                console.log(e)
-                return null;
-            }
-        }, 1000)*/
-
-        try {
-            return JSON.parse(localStorage.getItem((key)));
-        } catch (e) {
-            console.log(e)
-            return null;
-        }
-
+    static delay = ms => {
+        return new Promise(r => setTimeout(() => r(), ms))
+    }
+    static get = async (key) => {
+        await Repo.delay(1000)
+        return JSON.parse(localStorage.getItem((key)))
     }
 
-    static set = (key, value) => {
-/*        setTimeout(() => {
-            localStorage.setItem(key, JSON.stringify(value))
-        }, 1000)*/
-        localStorage.setItem(key, JSON.stringify(value))
+    static set = async (key, value) => {
+        await Repo.delay(1000)
+        return localStorage.setItem(key, JSON.stringify(value))
     }
 }
 

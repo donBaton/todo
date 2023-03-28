@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal';
-import DateMapper from "../../utils/DateMapper";
 
 const ModalWin = (props) => {
     const [todoTitle, setTodoTitle] = useState(props.item.title)
@@ -19,20 +18,22 @@ const ModalWin = (props) => {
     }
     const del = () => {
         const copy = props.todos.filter((e) => {
+            // if (e.id !== props.item.id) {
+            //     console.log()
+            // }
             return e.id !== props.item.id
         })
+        console.log(props.todos)
+        console.log(copy)
         props.handleTodos(copy)
         props.modalHandleClose()
     }
 
-    const getDate = () => {
-        return DateMapper.toString(new Date(props.item.date))
-    }
     return (
         <div>
             <Modal show={props.modalIsShown} onHide={props.modalHandleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Task from {getDate()}</Modal.Title>
+                    <Modal.Title>Task from {`${new Date(props.item.date).toLocaleDateString()} ${new Date(props.item.date).toLocaleTimeString()}`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
