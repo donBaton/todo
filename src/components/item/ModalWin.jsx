@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal';
+import {connect} from "react-redux";
+import {deleteTodo, updateTodo} from "../../redux/actions";
 
 const ModalWin = (props) => {
     const [todoTitle, setTodoTitle] = useState(props.item.title)
@@ -9,23 +11,12 @@ const ModalWin = (props) => {
         if (todoTitle === null || todoTitle === '') {
             setShowWarn(true)
         } else {
-            const copy = [...props.todos]
-            const current = copy.find(t => t.id === props.item.id)
-            current.title = todoTitle
-            props.handleTodos(copy)
+            props.updateTodo(props.item.id, todoTitle)
             props.modalHandleClose()
         }
     }
     const del = () => {
-        const copy = props.todos.filter((e) => {
-            // if (e.id !== props.item.id) {
-            //     console.log()
-            // }
-            return e.id !== props.item.id
-        })
-        console.log(props.todos)
-        console.log(copy)
-        props.handleTodos(copy)
+        props.deleteTodo(props.item.id)
         props.modalHandleClose()
     }
 
@@ -57,4 +48,8 @@ const ModalWin = (props) => {
     );
 }
 
-export default ModalWin;
+const mapDispatchToProps = {
+    updateTodo,
+    deleteTodo
+}
+export default connect(null, mapDispatchToProps)(ModalWin);

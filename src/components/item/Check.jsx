@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {completeTodo} from "../../redux/actions";
 
 const Check = (props) => {
     const handleChange = () => {
-        props.handleIsCompleted(!props.isCompleted)
+        props.completeTodo(props.id)
     }
 
     return (
@@ -12,5 +14,8 @@ const Check = (props) => {
         </div>
     );
 }
+const mapDispatchToProps = {
+    completeTodo
+}
 
-export default Check
+export default connect(null, mapDispatchToProps)(Check)

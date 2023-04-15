@@ -1,19 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Check from "./Check";
 import ModalWin from "./ModalWin";
+import { connect} from "react-redux";
+import {completeTodo} from "../../redux/actions";
 
-const TodoItem = ({todo, todos, handleTodos}) => {
-    const [isCompleted, setIsCompleted] = useState(todo.isCompleted)
+const TodoItem = (props) => {
     const [modalIsShown, setModalIsShown] = useState(false)
-
-    useEffect(() => {
-        const copy = [...todos]
-        const current = copy.find(t => t.id === todo.id)
-        current.isCompleted = !current.isCompleted
-        handleTodos(copy)
-    }, [isCompleted])
-
-
     const handleClose = () => setModalIsShown(false)
     const handleOpen = () => setModalIsShown(true)
 
@@ -21,15 +13,17 @@ const TodoItem = ({todo, todos, handleTodos}) => {
         <div>
             <div className='container mb-4 bg-light p-2 rounded-3'>
                 <div className="d-flex fs-4">
-                    <Check isCompleted={isCompleted} id={todo.id} handleIsCompleted={setIsCompleted}/>
+                    <Check isCompleted={props.todo.isCompleted} id={props.todo.id}/>
                     <div onClick={handleOpen}
-                         className={`container-fluid offset-1 ${isCompleted ? `text-decoration-line-through` : ''}`}>{todo.title}</div>
+                         className={`container-fluid offset-1 ${props.todo.isCompleted ? `text-decoration-line-through` : ''}`}>{props.todo.title}</div>
                 </div>
-                <div className="text-end">{`${new Date(todo.date).toLocaleDateString()} ${new Date(todo.date).toLocaleTimeString()}`}</div>
-                <ModalWin item={todo} modalIsShown={modalIsShown} modalHandleClose={handleClose} todos={todos} handleTodos={handleTodos}/>
+                <div className="text-end">{`${new Date(props.todo.date).toLocaleDateString()} ${new Date(props.todo.date).toLocaleTimeString()}`}</div>
+                <ModalWin item={props.todo} modalIsShown={modalIsShown} modalHandleClose={handleClose}/>
             </div>
         </div>
     );
 }
-
-export default TodoItem;
+const mapDispatchToProps = {
+    completeTodo
+}
+export default connect(null, mapDispatchToProps)(TodoItem);

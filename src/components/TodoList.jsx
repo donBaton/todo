@@ -1,11 +1,12 @@
 import React from 'react';
 import TodoItem from "./item/TodoItem";
+import { connect } from 'react-redux'
 
 const TodoList = (props) => {
     const getSortToDos = () => {
         return props.todos?.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)}).map((item) => (
-            <TodoItem todo={item} key={item.date} todos={props.todos} handleTodos={props.handlerTodos}/>
+            <TodoItem todo={item} key={item.id}/>
         ))
     }
 
@@ -17,5 +18,9 @@ const TodoList = (props) => {
         </div>
     );
 }
-
-export default TodoList
+const mapStateToProps = state => {
+    return {
+        todos: state.todos.todos
+    }
+}
+export default connect(mapStateToProps, null)(TodoList)

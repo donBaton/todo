@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import {v4 as uuidv4} from 'uuid'
+import {connect} from 'react-redux'
+import {createTodo} from "../redux/actions";
 
 const AddTask = (props) => {
     const [toDoTitle, setToDoTitle] = useState('')
@@ -9,14 +11,12 @@ const AddTask = (props) => {
         if (toDoTitle === null || toDoTitle === '') {
             setShowWarn(true)
         } else {
-            const copy = [...props.todos]
-            copy.push({
+            props.createTodo({
                 id: uuidv4(),
                 title: {toDoTitle}.toDoTitle,
                 date: new Date(),
                 isCompleted: false
             })
-            props.handlerTodos(copy)
             setToDoTitle('')
             setShowWarn(false)
         }
@@ -54,5 +54,7 @@ const AddTask = (props) => {
             </div>
         </div>)
 }
-
-export default AddTask
+const mapDispatchToProps = {
+    createTodo
+}
+export default connect(null, mapDispatchToProps)(AddTask)
