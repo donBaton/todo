@@ -37,26 +37,21 @@ export function deleteTodo(id) {
         id: id
     }
 }
-// export function fetchTodos() {
-//     return async dispatch => {
-//         const response = await Repo.get('todos')
-//         const json = response.json()
-//         dispatch({ type: FETCH_TODOS, payload: json})
-//     }
-// }
 
 export function fetchTodos() {
     return async (dispatch) => {
+        dispatch(showLoader())
         let json = await Repo.get('todos')
-        json = JSON.stringify(json)
-        console.log(`!!! ${json}`)
-        dispatch({type: FETCH_TODOS, payload: json})
+        dispatch({type: FETCH_TODOS, payload: JSON.stringify(json)})
+        dispatch(hideLoader())
     }
 }
 
-export function saveTodos() {
-    return {
-        type: SAVE_TODOS,
+export function saveTodos(todos) {
+    return async (dispatch) => {
+        dispatch(showLoader())
+        await Repo.set('todos', todos)
+        dispatch(hideLoader())
     }
 }
 

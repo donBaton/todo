@@ -20,9 +20,7 @@ export const todoReducer = (state = initialState, action) => {
         case DELETE_TODO:
             return {...state, todos: state.todos.filter(todo => todo.id !== action.id)}
         case FETCH_TODOS:
-            return {...state, todos: JSON.parse(action.payload)}
-        case SAVE_TODOS:
-
+            return {...state, todos: JSON.parse(action.payload), isLoading: true}
         default:
             return state
     }

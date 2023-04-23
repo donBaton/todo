@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoItem from "./item/TodoItem";
 import { connect } from 'react-redux'
+import Loader from "./Loader";
 
 const TodoList = (props) => {
     const getSortToDos = () => {
@@ -13,9 +14,7 @@ const TodoList = (props) => {
     return (
         <div className="row">
             <div>
-                !{props.isLoading}
-                {props.length}
-                {props.isLoading?'Loading...':getSortToDos()}
+                {props.isLoading?<Loader />:getSortToDos()}
             </div>
         </div>
     );
@@ -23,7 +22,7 @@ const TodoList = (props) => {
 const mapStateToProps = state => {
     return {
         todos: state.todos.todos,
-        loader: state.isLoading,
+        isLoading: state.loader.isLoading,
     }
 }
 export default connect(mapStateToProps, null)(TodoList)

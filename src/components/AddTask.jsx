@@ -50,11 +50,18 @@ const AddTask = (props) => {
                 </div>
             </div>
             <div className="row py-3">
-                <button className="btn btn-primary" onClick={addItem}>Add</button>
+                <button className="btn btn-primary" onClick={addItem} disabled={props.loader}>Add</button>
             </div>
         </div>)
 }
 const mapDispatchToProps = {
     createTodo
 }
-export default connect(null, mapDispatchToProps)(AddTask)
+
+const mapStateToProps = state => {
+    return {
+        loader: state.loader.isLoading,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask)
