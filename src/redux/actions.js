@@ -1,4 +1,14 @@
-import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, UPDATE_TODO} from "./types";
+import {
+    ADD_TODO,
+    COMPLETE_TODO,
+    DELETE_TODO,
+    FETCH_TODOS,
+    HIDE_LOADER,
+    SAVE_TODOS,
+    SHOW_LOADER,
+    UPDATE_TODO
+} from "./types";
+import Repo from "../repo/Repo";
 
 export function createTodo(todo) {
     return {
@@ -25,5 +35,36 @@ export function deleteTodo(id) {
     return {
         type: DELETE_TODO,
         id: id
+    }
+}
+// export function fetchTodos() {
+//     return async dispatch => {
+//         const response = await Repo.get('todos')
+//         const json = response.json()
+//         dispatch({ type: FETCH_TODOS, payload: json})
+//     }
+// }
+
+export function fetchTodos() {
+    return function (dispatch) {
+        dispatch({type: FETCH_TODOS})
+    }
+}
+
+export function saveTodos() {
+    return {
+        type: SAVE_TODOS,
+    }
+}
+
+export function showLoader() {
+    return {
+        type: SHOW_LOADER,
+    }
+}
+
+export function hideLoader() {
+    return {
+        type: HIDE_LOADER,
     }
 }

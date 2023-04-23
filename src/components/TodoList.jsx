@@ -13,6 +13,8 @@ const TodoList = (props) => {
     return (
         <div className="row">
             <div>
+                !{props.isLoading}
+                {props.length}
                 {props.isLoading?'Loading...':getSortToDos()}
             </div>
         </div>
@@ -20,7 +22,8 @@ const TodoList = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        todos: state.todos.todos
+        todos: state.todos.todos,
+        loader: state.isLoading,
     }
 }
 export default connect(mapStateToProps, null)(TodoList)
