@@ -46,8 +46,11 @@ export function deleteTodo(id) {
 // }
 
 export function fetchTodos() {
-    return function (dispatch) {
-        dispatch({type: FETCH_TODOS})
+    return async (dispatch) => {
+        let json = await Repo.get('todos')
+        json = JSON.stringify(json)
+        console.log(`!!! ${json}`)
+        dispatch({type: FETCH_TODOS, payload: json})
     }
 }
 

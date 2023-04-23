@@ -1,4 +1,4 @@
-import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, FETCH_TODOS, UPDATE_TODO} from "./types";
+import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, FETCH_TODOS, SAVE_TODOS, UPDATE_TODO} from "./types";
 
 const initialState = {
     todos: []
@@ -20,7 +20,9 @@ export const todoReducer = (state = initialState, action) => {
         case DELETE_TODO:
             return {...state, todos: state.todos.filter(todo => todo.id !== action.id)}
         case FETCH_TODOS:
-            return {...action.todos}
+            return {...state, todos: JSON.parse(action.payload)}
+        case SAVE_TODOS:
+
         default:
             return state
     }
